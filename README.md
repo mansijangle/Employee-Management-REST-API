@@ -1,54 +1,182 @@
-# ReliaQuest's Entry-Level Java Challenge
+# 🚀 Employee Management REST API
 
-Please keep the following in mind while working on this challenge:
-* Code implementations will not be graded for **correctness** but rather on practicality
-* Articulate clear and concise design methodologies, if necessary
-* Use clean coding etiquette
-  * E.g. avoid liberal use of new-lines, odd variable and method names, random indentation, etc...
-* Test cases are not required
+## 📌 Overview
 
-## Problem Statement
+This project is a **secure REST API** built using Spring Boot to expose employee data for integration with the Employees-R-US SaaS platform.
 
-Your employer has recently purchased a license to top-tier SaaS platform, Employees-R-US, to off-load all employee management responsibilities.
-Unfortunately, your company's product has an existing employee management solution that is tightly coupled to other services and therefore 
-cannot be replaced whole-cloth. Product and Development leads in your department have decided it would be best to interface
-the existing employee management solution with the commercial offering from Employees-R-US for the time being until all employees can be
-migrated to the new SaaS platform.
+It fulfills the requirements of the **ReliaQuest Entry-Level Java Challenge** by providing a **protected interface between legacy systems and external SaaS services**.
 
-Your ask is to expose employee information as a protected, secure REST API for consumption by Employees-R-US web hooks.
-The initial REST API will consist of 3 endpoints, listed in the following section. If for any reason the implementation 
-of an endpoint is problematic, the team lead will accept **pseudo-code** and a pertinent description (e.g. java-doc) of intent.
+---
 
-Good luck!
+## 🧠 Architecture Diagram
 
-## Endpoints to implement (API module)
+![Architecture](architecture.png)
 
-_See `com.challenge.api.controller.EmployeeController` for details._
+---
 
-getAllEmployees()
+## 🏗️ Architecture Explanation
 
-    output - list of employees
-    description - this should return all employees, unfiltered
+The system follows a **layered architecture**:
 
-getEmployeeByUuid(...)
+* **Controller Layer** → Handles incoming HTTP requests
+* **Service Layer** → Contains business logic
+* **DTO Layer** → Separates API contract from internal models
+* **In-Memory Store** → Simulates persistence layer
 
-    path variable - employee UUID
-    output - employee
-    description - this should return a single employee based on the provided employee UUID
+### Additional Layers:
 
-createEmployee(...)
+* **Validation Layer** → Ensures correct input (`@Valid`)
+* **Global Exception Handler** → Centralized error handling
+* **Spring Security** → Protects all endpoints
 
-    request body - attributes necessary to create an employee
-    output - employee
-    description - this should return a single employee, if created, otherwise error
+---
 
-## Code Formatting
+## 🔐 Security
 
-This project utilizes Gradle plugin [Diffplug Spotless](https://github.com/diffplug/spotless/tree/main/plugin-gradle) to enforce format
-and style guidelines with every build.
+All endpoints are secured using **Spring Security (HTTP Basic Authentication)**.
 
-To format code according to style guidelines, you can run **spotlessApply** task.
-`./gradlew spotlessApply`
+```text
+Username: admin
+Password: password
+```
 
-The spotless plugin will also execute check-and-validation tasks as part of the gradle **build** task.
-`./gradlew build`
+---
+
+## 📚 API Documentation
+
+Swagger UI is available for testing APIs:
+
+```text
+http://localhost:8080/swagger-ui/index.html
+```
+
+---
+
+## 📡 Implemented Endpoints (As per Challenge)
+
+### ✅ 1. Get All Employees
+
+```http
+GET /api/v1/employee
+```
+
+* Returns all employees (unfiltered)
+
+---
+
+### ✅ 2. Get Employee by UUID
+
+```http
+GET /api/v1/employee/{uuid}
+```
+
+* Returns a single employee
+* Returns 404 if not found
+
+---
+
+### ✅ 3. Create Employee
+
+```http
+POST /api/v1/employee
+```
+
+#### Request:
+
+```json
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "salary": 60000,
+  "age": 25,
+  "jobTitle": "Software Engineer",
+  "email": "john.doe@example.com"
+}
+```
+
+* Validates input
+* Generates UUID automatically
+
+---
+
+## 🎯 How This Satisfies Challenge Requirements
+
+According to the challenge description :
+
+### ✔ Secure REST API
+
+* Implemented using **Spring Security**
+* All endpoints are protected
+
+---
+
+### ✔ Required Endpoints
+
+* `getAllEmployees()` → Implemented
+* `getEmployeeByUuid()` → Implemented
+* `createEmployee()` → Implemented
+
+---
+
+### ✔ Practical Implementation
+
+* Used **in-memory store** (as expected)
+* Clean and simple design (no overengineering)
+
+---
+
+### ✔ Clean Code Practices
+
+* Layered architecture
+* Interface-based service design
+* Proper naming conventions
+* DTO separation
+
+---
+
+### ✔ Clear Design Methodology
+
+* Separation of concerns
+* Loose coupling
+* Scalable structure
+
+---
+
+## 🚀 Additional Enhancements (Beyond Requirements)
+
+* Pagination support
+* Search & filtering
+* DTO-based architecture
+* Global exception handling
+* Swagger documentation
+* Logging
+
+---
+
+## 📦 Tech Stack
+
+* Java 17
+* Spring Boot
+* Spring Security
+* Swagger (OpenAPI)
+* Lombok
+* Gradle
+
+---
+
+## ▶️ How to Run
+
+```bash
+gradlew build
+gradlew bootRun
+```
+
+---
+
+## 💯 Conclusion
+
+This project not only satisfies all the requirements of the challenge but also enhances it with production-level features such as security, validation, and documentation.
+
+---
+
+⭐ *Designed with scalability, maintainability, and real-world backend practices in mind.*
