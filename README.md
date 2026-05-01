@@ -167,8 +167,9 @@ According to the challenge description :
 ## ▶️ How to Run
 
 ```bash
-gradlew build
-gradlew bootRun
+./gradlew spotlessApply
+./gradlew build
+/gradlew bootRun  
 ```
 
 ---
